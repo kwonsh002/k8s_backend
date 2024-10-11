@@ -1,0 +1,26 @@
+name: Build and Push to ACR
+
+on:
+  push:
+    branches:
+      - main # main 브랜치에 푸시할 때 트리거됩니다.
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Log in to ACR
+        run: |
+          echo "${{ secrets.AZURE_REGISTRY_KEY }}" | docker login "registrybluejay.azurecr.io" --username "registrybluejay" --password-stdin
+
+      - name: Build Docker image
+        run: |
+          docker build -t registrybluejay.azurecr.io/myapp:latest .
+
+      - name: Push Docker image
+        run: |
+          docker push registrybluejay.azurecr.io/myapp:latest
