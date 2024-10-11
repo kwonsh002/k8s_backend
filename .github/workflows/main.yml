@@ -32,4 +32,5 @@ jobs:
       - name: Push Docker image
         run: |
           # 고유 태그로 Docker 이미지 푸시
+          echo "Pushing image with tag: $IMAGE_TAG"  # 푸시할 태그 출력
           docker push registrybluejay.azurecr.io/$IMAGE_TAG
