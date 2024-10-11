@@ -3,7 +3,7 @@ name: Build and Push to ACR
 on:
   push:
     branches:
-      - main # main 브랜치에 푸시할 때 트리거됩니다.
+      - main
 
 jobs:
   build:
@@ -19,10 +19,12 @@ jobs:
 
       - name: Build Docker image
         run: |
-          # 현재 커밋 해시를 태그로 사용
-          IMAGE_TAG=$(echo "${GITHUB_SHA}" | cut -c1-7) # 커밋 해시의 처음 7자
-          docker build -t registrybluejay.azurecr.io/myapp:${IMAGE_TAG} .
+          IMAGE_TAG=$(echo "${GITHUB_SHA}" | cut -c1-7)
+          echo "IMAGE_TAG: ${IMAGE_TAG}"  # 태그 확인
+          docker build -t registrybluejay.azurecr.io/myapp:latest .
+          docker tag registrybluejay.azurecr.io/myapp:latest registrybluejay.azurecr.io/myapp:${IMAGE_TAG}
 
       - name: Push Docker image
         run: |
+          docker push registrybluejay.azurecr.io/myapp:latest
           docker push registrybluejay.azurecr.io/myapp:${IMAGE_TAG}
