@@ -25,4 +25,4 @@ jobs:
 
       - name: Push Docker image
         run: |
-          docker push registrybluejay.azurecr.io/myapp:latest
+          docker push registrybluejay.azurecr.io/myapp:${IMAGE_TAG}
