@@ -26,8 +26,8 @@ def login():
     data = request.get_json()
     user = User.query.filter_by(username=data['username']).first()
     if user and check_password_hash(user.password, data['password']):
-        return jsonify({'message': 'Login successful!!'}), 200
-    return jsonify({'message': 'Invalid username or password!!'}), 401
+        return jsonify({'message': 'Login successful!'}), 200
+    return jsonify({'message': 'Invalid username or password!'}), 401
 
 if __name__ == '__main__':
     with app.app_context():

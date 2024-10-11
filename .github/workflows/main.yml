@@ -19,7 +19,9 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t registrybluejay.azurecr.io/myapp:latest .
+          # 현재 커밋 해시를 태그로 사용
+          IMAGE_TAG=$(echo "${GITHUB_SHA}" | cut -c1-7) # 커밋 해시의 처음 7자
+          docker build -t registrybluejay.azurecr.io/myapp:${IMAGE_TAG} .
 
       - name: Push Docker image
         run: |
