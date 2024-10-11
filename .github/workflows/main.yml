@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env: # 여기서 env로 전역 환경 변수를 설정
+      IMAGE_TAG: "" # 초기값 설정
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -18,13 +21,17 @@ jobs:
           echo "${{ secrets.AZURE_REGISTRY_KEY }}" | docker login "registrybluejay.azurecr.io" --username "registrybluejay" --password-stdin
 
       - name: Build Docker image
+        id: build # 단계에 ID 부여
         run: |
           # 현재 타임스탬프를 YYYYMMDD-HHMMSS 형식으로 가져오기
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
-          echo "timestamp: $TIMESTAMP" 
+          echo "timestamp: $TIMESTAMP"
           IMAGE_TAG="myapp:$TIMESTAMP"
 
           echo "Image tag is $IMAGE_TAG"
+
+          # IMAGE_TAG 환경 변수에 값 할당
+          echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV  # 이 줄은 필요 없습니다.
 
           # 고유 태그로 Docker 이미지 빌드
           docker build -t registrybluejay.azurecr.io/$IMAGE_TAG .
