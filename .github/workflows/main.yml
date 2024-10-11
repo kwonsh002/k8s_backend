@@ -19,8 +19,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          # Get current timestamp in the format YYYYMMDDHHMMSS
-          TIMESTAMP=$(date +"%Y%m%d%H%M%S")
+          # Get current timestamp in the format YYYYMMDD-HHMMSS
+          TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
           IMAGE_TAG="myapp:$TIMESTAMP"  # Unique tag based on the timestamp
           echo "Image tag is $IMAGE_TAG"
 
