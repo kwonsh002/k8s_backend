@@ -19,17 +19,17 @@ jobs:
 
       - name: Build Docker image
         run: |
-          # Get current timestamp in the format YYYYMMDD-HHMMSS
+          # 현재 타임스탬프를 YYYYMMDD-HHMMSS 형식으로 가져오기
           TIMESTAMP=$(date +%Y%m%d%H%M%S)
           echo "timestamp: $TIMESTAMP" 
           IMAGE_TAG="myapp:$TIMESTAMP"
 
           echo "Image tag is $IMAGE_TAG"
 
-          # Build the Docker image with the unique tag
+          # 고유 태그로 Docker 이미지 빌드
           docker build -t registrybluejay.azurecr.io/$IMAGE_TAG .
 
       - name: Push Docker image
         run: |
-          # Push the Docker image with the unique tag
-          docker push registrybluejay.azurecr.io/myapp:$TIMESTAMP
+          # 고유 태그로 Docker 이미지 푸시
+          docker push registrybluejay.azurecr.io/$IMAGE_TAG
