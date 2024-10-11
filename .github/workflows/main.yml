@@ -9,8 +9,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    env: # 여기서 env로 전역 환경 변수를 설정
-      IMAGE_TAG: "" # 초기값 설정
+    env:
+      IMAGE_TAG: ""
 
     steps:
       - name: Checkout code
