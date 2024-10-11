@@ -20,8 +20,9 @@ jobs:
       - name: Build Docker image
         run: |
           # Get current timestamp in the format YYYYMMDD-HHMMSS
-          TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
-          IMAGE_TAG="myapp:$TIMESTAMP"  # Unique tag based on the timestamp
+          TIMESTAMP=$(date +%Y%m%d%H%M%S)-  # 현재 시간을 YYYYMMDDHHMMSS 형식으로 생성하고 하이픈 추가
+          IMAGE_TAG="myapp:$TIMESTAMP"  # 태그를 TIMESTAMP로 설정
+
           echo "Image tag is $IMAGE_TAG"
 
           # Build the Docker image with the unique tag
