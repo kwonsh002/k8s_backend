@@ -3,7 +3,7 @@ name: Build and Push to ACR
 on:
   push:
     branches:
-      - main
+      - main # main 브랜치에 푸시할 때 트리거됩니다.
 
 jobs:
   build:
@@ -19,12 +19,15 @@ jobs:
 
       - name: Build Docker image
         run: |
-          IMAGE_TAG=$(echo "${GITHUB_SHA}" | cut -c1-7)
-          echo "IMAGE_TAG: ${IMAGE_TAG}"  # 태그 확인
-          docker build -t registrybluejay.azurecr.io/myapp:latest .
-          docker tag registrybluejay.azurecr.io/myapp:latest registrybluejay.azurecr.io/myapp:${IMAGE_TAG}
+          # Get current timestamp in the format YYYYMMDDHHMMSS
+          TIMESTAMP=$(date +"%Y%m%d%H%M%S")
+          IMAGE_TAG="myapp:$TIMESTAMP"  # Unique tag based on the timestamp
+          echo "Image tag is $IMAGE_TAG"
+
+          # Build the Docker image with the unique tag
+          docker build -t registrybluejay.azurecr.io/$IMAGE_TAG .
 
       - name: Push Docker image
         run: |
-          docker push registrybluejay.azurecr.io/myapp:latest
-          docker push registrybluejay.azurecr.io/myapp:${IMAGE_TAG}
+          # Push the Docker image with the unique tag
+          docker push registrybluejay.azurecr.io/myapp:$TIMESTAMP
