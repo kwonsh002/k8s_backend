@@ -1,13 +1,11 @@
-# app.py
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-import pyodbc
 
 app = Flask(__name__)
 
-# Azure SQL Database 연결
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mssql+pyodbc://kwon001:1q2w3e4r!@#@db-server-test001.database.windows.net/test?driver=ODBC+Driver+17+for+SQL+Server'
+# MySQL 연결
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://kwon001:1q2w3e4r!@#@mysql-server-address/test'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
