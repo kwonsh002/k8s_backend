@@ -5,7 +5,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 
 # MySQL 데이터베이스 연결 설정
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://kwon001:Manoit123@dbtest001.mysql.database.azure.com:3306/test'
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://kwon001:Manoit123@killdeerdbserver.mysql.database.azure.com:3306/test'
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
