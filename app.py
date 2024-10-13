@@ -2,10 +2,14 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+import pyodbc
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'  # SQLite 사용 예시
+
+# Azure SQL Database 연결
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mssql+pyodbc://kwon001:1q2w3e4r!@#@db-server-test001.database.windows.net/test?driver=ODBC+Driver+17+for+SQL+Server'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app)
 
 class User(db.Model):
