@@ -3,7 +3,7 @@ name: Build and Push to ACR
 on:
   push:
     branches:
-      - main # main 브랜치에 푸시할 때 트리거됩니다.
+      - main
 
 jobs:
   build:
